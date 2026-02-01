@@ -1,0 +1,140 @@
+<header>
+  <div class="nav">
+    <div class="logo">🐾 LittlePaws</div>
+    <div class="nav-links">
+      <a class="back-btn" routerLink="/petstore">← Back to PetStore</a>
+    </div>
+  </div>
+</header>
+
+<div class="toast" *ngIf="toastVisible">
+  Payment successful ✅
+  <small>Redirecting back to PetStore...</small>
+</div>
+
+<main>
+  <section class="form-box">
+    <h3>Billing & Payment</h3>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" placeholder="John Doe" [(ngModel)]="fullName" name="fullName" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="john@email.com" [(ngModel)]="email" name="email" required>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" type="tel" placeholder="+389 70 123 456" [(ngModel)]="phone" name="phone" required>
+      </div>
+
+      <div class="field">
+        <label for="country">Country</label>
+        <input id="country" type="text" placeholder="North Macedonia" [(ngModel)]="country" name="country" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="address">Address</label>
+      <input id="address" type="text" placeholder="Street, City" [(ngModel)]="address" name="address" required>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod" [(ngModel)]="paymentMethod" name="paymentMethod">
+          <option value="card">Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash">Cash on delivery</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cardName">Name on Card</label>
+        <input id="cardName" type="text" placeholder="John Doe" [(ngModel)]="cardName" name="cardName">
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="cardNumber">Card Number</label>
+        <input
+          id="cardNumber"
+          type="text"
+          inputmode="numeric"
+          placeholder="1234 5678 9012 3456"
+          maxlength="19"
+          [(ngModel)]="cardNumber"
+          name="cardNumber"
+        >
+      </div>
+
+      <div class="field">
+        <label for="exp">Expiry</label>
+        <input id="exp" type="text" placeholder="MM/YY" maxlength="5" [(ngModel)]="exp" name="exp">
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="cvv">CVV</label>
+        <input id="cvv" type="password" inputmode="numeric" placeholder="123" maxlength="4" [(ngModel)]="cvv" name="cvv">
+      </div>
+
+      <div class="field">
+        <label for="zip">ZIP</label>
+        <input id="zip" type="text" placeholder="1000" maxlength="10" [(ngModel)]="zip" name="zip">
+      </div>
+    </div>
+
+    <button class="pay-btn" type="button" (click)="pay()">Pay</button>
+    <div class="muted" style="margin-top:-0.4rem;">By paying you confirm your order</div>
+  </section>
+
+  <section class="summary-box">
+    <h3>Summary</h3>
+
+    <div *ngIf="checkoutItems.length === 0" class="muted">
+      No items selected 🐾
+    </div>
+
+    <div *ngIf="checkoutItems.length > 0">
+      <div class="summary-item" *ngFor="let item of checkoutItems">
+        <span>{{ item.name }}</span>
+        <span>${{ item.price }}</span>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #e6d8c3;margin:0.25rem 0;">
+    <div class="total">Total: ${{ total }}</div>
+    <div class="muted">Checkout</div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+
+    <div class="footer-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 PetStore — All rights reserved.
+    </div>
+  </div>
+</footer>

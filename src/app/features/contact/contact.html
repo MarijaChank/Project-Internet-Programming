@@ -1,0 +1,148 @@
+<header>
+  <div class="nav">
+    <div class="logo">🐾 LittlePaws</div>
+
+    <div class="nav-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+
+      <div class="cart-icon" routerLink="/cart">
+        🛒<span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- 🌟 TOAST (same style as Donations) -->
+<div class="toast" *ngIf="submitted">
+  <div class="toast-main">
+    <span class="toast-title">Message sent successfully ✅</span>
+    <span class="toast-sub">Thanks for reaching out to LittlePaws!</span>
+  </div>
+
+  <button class="toast-btn" type="button" (click)="resetToast()">
+    Close
+  </button>
+</div>
+
+
+<section class="contact-section">
+
+  <!-- MAP -->
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2965.512220057912!2d21.432392!3d41.997346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1354144b1b38c6f7%3A0x7c0d3f9c9c6d64e!2sMacedonia%20Square%2C%20Skopje!5e0!3m2!1sen!2smk!4v1700000000000"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form">
+      <h2>Send us a Message 💌</h2>
+
+      <!-- Angular submit (NO scripts anymore) -->
+      <form #f="ngForm" (ngSubmit)="submit(f)">
+
+        <input
+          type="text"
+          name="name"
+          ngModel
+          placeholder="Your Name"
+          required
+        >
+
+        <input
+          type="email"
+          name="email"
+          ngModel
+          placeholder="E-mail Address"
+          required
+        >
+
+        <input
+          type="text"
+          name="phone"
+          ngModel
+          placeholder="Phone Number"
+        >
+
+        <textarea
+          name="message"
+          ngModel
+          placeholder="Write your message..."
+          required
+        ></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- INFO SECTION -->
+  <div class="contact-info">
+    <h1>Contact Us 🐾</h1>
+    <p class="subtitle">
+      Come visit our cozy pet store in Skopje or send us a message anytime.
+    </p>
+
+    <div class="info-box">
+      <div>
+        <h3>📍 Address</h3>
+        <p>
+          Macedonia Square<br>
+          Central Skopje, North Macedonia
+        </p>
+      </div>
+
+      <div>
+        <h3>📞 Contact</h3>
+        <p>
+          contact@littlepaws.com<br>
+          +389 70 123 456
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<footer>
+  <div class="footer-wrap">
+
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <a href="#" aria-label="Facebook">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+
+      <a href="#" aria-label="X">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+
+      <a href="#" aria-label="TikTok">
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+    </div>
+
+    <div class="footer-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 PetStore — All rights reserved.
+    </div>
+
+  </div>
+</footer>

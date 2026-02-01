@@ -1,0 +1,364 @@
+<header>
+  <div class="nav">
+    <div class="logo">🐾 LittlePaws</div>
+
+    <div class="nav-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+
+      <div class="cart-icon" routerLink="/cart">
+        🛒<span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-kicker">
+          <span>make donations</span> • <span>pet care</span>
+        </div>
+
+        <h1>Empower Change With Your Contribution.</h1>
+
+        <p>
+          Your donation brings warmth, food, and care to pets who need it most.
+          Even the smallest help can transform a life — one paw at a time.
+        </p>
+
+        <div class="impact-row">
+          <div class="impact">
+            <strong>1,200+</strong>
+            <span>Pets rescued</span>
+          </div>
+          <div class="impact">
+            <strong>5,000+</strong>
+            <span>Meals provided</span>
+          </div>
+          <div class="impact">
+            <strong>350+</strong>
+            <span>Successful adoptions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 170" preserveAspectRatio="none">
+      <path
+        fill="var(--secondary)"
+        d="M0,0
+          C360,140 1080,140 1440,0
+          L1440,170
+          L0,170
+          Z"
+      ></path>
+    </svg>
+  </div>
+</section>
+
+<!-- ✅ Toast controlled by Angular -->
+<div class="toast" *ngIf="submitted">
+  Payment successful ✅
+  <small>Thanks for your donation!</small>
+  <button class="toast-btn" type="button" (click)="resetToast()">Close</button>
+</div>
+
+<main class="section">
+  <div class="donation-grid">
+    <div class="photo-card">
+      <!-- ✅ If Pictures&Videos is in /public, this path is correct -->
+      <img alt="Donation" src="/Pictures&Videos/donation.jpg" />
+    </div>
+
+    <div class="form-card">
+      <div class="form-kicker">make a donation</div>
+      <div class="form-title">Your Donation Has The Power To Transform Lives.</div>
+      <div class="form-sub">
+        Fill in your details, pick a donation type, and help us care for pets in need.
+      </div>
+
+      <!-- ✅ Angular submit -->
+      <form (ngSubmit)="submit()">
+        <div class="form-grid">
+          <div>
+            <label for="name">Your Name</label>
+            <input
+              class="input"
+              id="name"
+              type="text"
+              placeholder="e.g., Ana Petrova"
+              required
+              [(ngModel)]="donorName"
+              name="donorName"
+            />
+          </div>
+
+          <div>
+            <label for="address">Your Address</label>
+            <input
+              class="input"
+              id="address"
+              type="text"
+              placeholder="City, Street, Number"
+              required
+              [(ngModel)]="address"
+              name="address"
+            />
+          </div>
+
+          <div>
+            <label for="phone">Telephone</label>
+            <input
+              class="input"
+              id="phone"
+              type="tel"
+              placeholder="+389 ..."
+              [(ngModel)]="phone"
+              name="phone"
+            />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input
+              class="input"
+              id="email"
+              type="email"
+              placeholder="you@email.com"
+              required
+              [(ngModel)]="email"
+              name="email"
+            />
+          </div>
+
+          <div class="full">
+            <label>Donation Type</label>
+
+            <!-- ✅ Tabs controlled by Angular -->
+            <div class="tabs">
+              <button
+                type="button"
+                class="tab-btn"
+                [class.active]="activeTab === 'money'"
+                (click)="setActiveTab('money')"
+              >
+                Payment Donation
+              </button>
+
+              <button
+                type="button"
+                class="tab-btn"
+                [class.active]="activeTab === 'goods'"
+                (click)="setActiveTab('goods')"
+              >
+                Goods Donation
+              </button>
+            </div>
+          </div>
+
+          <!-- ✅ Payment panel -->
+          <div class="full panel" *ngIf="activeTab === 'money'">
+            <div class="panel-title">
+              <strong>Payment Donation</strong>
+              <span class="badge">choose any amount</span>
+            </div>
+
+            <div class="form-grid" style="margin-top:0;">
+              <div>
+                <label for="paymentMethod">Donation Payment</label>
+                <select
+                  id="paymentMethod"
+                  [(ngModel)]="paymentMethod"
+                  name="paymentMethod"
+                >
+                  <option value="">Select Payment...</option>
+                  <option>Card</option>
+                  <option>PayPal</option>
+                  <option>Bank Transfer</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="currency">Currency</label>
+                <select id="currency" [(ngModel)]="currency" name="currency">
+                  <option value="MKD">MKD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+
+              <div class="full slider-wrap">
+                <label for="amountRange">Donation Total</label>
+
+                <div class="amount-row">
+                  <!-- ✅ Live amount -->
+                  <span class="amount-pill">
+                    {{ currency }} {{ formatNumber(amount) }}
+                  </span>
+                  <span class="hint">Slide to choose</span>
+                </div>
+
+                <input
+                  class="range"
+                  id="amountRange"
+                  type="range"
+                  min="1"
+                  max="20000"
+                  step="1"
+                  [(ngModel)]="amount"
+                  name="amount"
+                />
+
+                <div class="hint">Tip: you’re not limited — pick any amount that feels right.</div>
+              </div>
+
+              <div class="full accepted-payments">
+                <div class="payment-icons">
+                  <i class="fa-brands fa-paypal" title="PayPal"></i>
+                  <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                  <i class="fa-brands fa-cc-mastercard" title="MasterCard"></i>
+                  <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                  <i class="fa-brands fa-cc-discover" title="Discover"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ✅ Goods panel -->
+          <div class="full panel" *ngIf="activeTab === 'goods'">
+            <div class="panel-title">
+              <strong>Goods Donation</strong>
+              <span class="badge">pick multiple items</span>
+            </div>
+
+            <div class="form-grid" style="margin-top:0;">
+              <!-- Simple: regular checkboxes (no custom dropdown JS) -->
+              <div class="full">
+                <label>Donation Items</label>
+
+                <div class="panel" style="margin-top:.3rem;">
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Medications')" [checked]="goodsItems.includes('Medications')" />
+                    <span>Medications</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Blankets & Towels')" [checked]="goodsItems.includes('Blankets & Towels')" />
+                    <span>Blankets & Towels</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Food')" [checked]="goodsItems.includes('Food')" />
+                    <span>Food</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Water & Bowls')" [checked]="goodsItems.includes('Water & Bowls')" />
+                    <span>Water & Bowls</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Accessories')" [checked]="goodsItems.includes('Accessories')" />
+                    <span>Accessories</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Hygiene (Shampoo, Pads)')" [checked]="goodsItems.includes('Hygiene (Shampoo, Pads)')" />
+                    <span>Hygiene (Shampoo, Pads)</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsItems,'Toys')" [checked]="goodsItems.includes('Toys')" />
+                    <span>Toys</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="full">
+                <label>Animal Type</label>
+
+                <div class="panel" style="margin-top:.3rem;">
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsAnimals,'For Dogs')" [checked]="goodsAnimals.includes('For Dogs')" />
+                    <span>For Dogs</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsAnimals,'For Cats')" [checked]="goodsAnimals.includes('For Cats')" />
+                    <span>For Cats</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsAnimals,'For Small Pets')" [checked]="goodsAnimals.includes('For Small Pets')" />
+                    <span>For Small Pets</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsAnimals,'For Puppies / Kittens')" [checked]="goodsAnimals.includes('For Puppies / Kittens')" />
+                    <span>For Puppies / Kittens</span>
+                  </label>
+
+                  <label class="check-row">
+                    <input type="checkbox" (change)="toggleSelection(goodsAnimals,'Any / Mixed')" [checked]="goodsAnimals.includes('Any / Mixed')" />
+                    <span>Any / Mixed</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="full">
+                <label for="goodsNote">Message (optional)</label>
+                <textarea
+                  id="goodsNote"
+                  [(ngModel)]="goodsNote"
+                  name="goodsNote"
+                  placeholder="Example: 5kg dog food + 2 blankets + vitamins. Can drop off on Saturday."
+                ></textarea>
+              </div>
+
+              <div class="full hint">
+                Cute idea: you can donate “starter packs” (food + bowls + blanket). We’ll match them to pets who need them most.
+              </div>
+            </div>
+          </div>
+
+          <div class="full">
+            <button class="cta" type="submit">
+              Donate Now
+            </button>
+
+            <!-- We keep your successMsg div for layout stability (optional) -->
+            <div class="success"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+
+    <div class="footer-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 PetStore — All rights reserved.
+    </div>
+  </div>
+</footer>

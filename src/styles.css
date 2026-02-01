@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root{
+  --primary:#c19a6b;
+  --secondary:#f5efe6;
+  --card:#ffffff;
+  --text:#3f3a34;
+  --muted:#7a7268;
+  --footer-bg:#3f3a34;
+
+  --nav-solid-bg:#fffaf3;
+  --nav-border:#e6d8c3;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui,sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  background:var(--secondary);
+  color:var(--text);
+}
+

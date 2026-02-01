@@ -1,0 +1,223 @@
+<header>
+  <div class="nav">
+    <div class="logo">🐾 LittlePaws</div>
+
+    <div class="nav-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+
+      <div class="cart-icon" (click)="goToCart()">
+        🛒<span class="cart-count" id="cartCount">{{ cartCount }}</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="toast" *ngIf="toastVisible">
+  Payment successful ✅
+  <small>Thanks for your purchase!</small>
+</div>
+
+<main>
+  <section class="top-bar">
+    <div class="categories">
+      <button class="bubble" [class.active]="currentCategory==='pets'" (click)="setCategory('pets')">Pets</button>
+      <button class="bubble" [class.active]="currentCategory==='accessories'" (click)="setCategory('accessories')">Accessories</button>
+      <button class="bubble" [class.active]="currentCategory==='food'" (click)="setCategory('food')">Food</button>
+    </div>
+
+    <div class="search">
+      <input [(ngModel)]="search" type="text" placeholder="Search..." />
+    </div>
+  </section>
+
+  <div class="main-layout">
+    <aside class="filters">
+      <h3 id="filterHeading">
+        Filter {{ currentCategory === 'pets' ? 'Pets' : (currentCategory === 'accessories' ? 'Accessories' : 'Food') }}
+      </h3>
+
+      <div class="filter-group" *ngIf="currentCategory==='pets'">
+        <select [(ngModel)]="petAnimal">
+          <option value="">Animal</option>
+          <option>Dog</option>
+          <option>Cat</option>
+          <option>Bunny</option>
+        </select>
+
+        <select [(ngModel)]="petBreed">
+          <option value="">Breed</option>
+          <option>Golden Retriever</option>
+          <option>Persian</option>
+          <option>Bulldog</option>
+          <option>Siamese</option>
+        </select>
+
+        <select [(ngModel)]="petAge">
+          <option value="">Age</option>
+          <option>Young</option>
+          <option>Adult</option>
+        </select>
+
+        <select [(ngModel)]="petGender">
+          <option value="">Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+
+        <select [(ngModel)]="petPriceSort">
+          <option value="">Price</option>
+          <option value="low">Low → High</option>
+          <option value="high">High → Low</option>
+        </select>
+      </div>
+
+  
+      <div class="filter-group" *ngIf="currentCategory==='accessories'">
+        <select [(ngModel)]="accAnimal">
+          <option value="">Animal</option>
+          <option>Dog</option>
+          <option>Cat</option>
+          <option>Bunny</option>
+        </select>
+
+        <select [(ngModel)]="accType">
+          <option value="">Accessory</option>
+          <option>Leash</option>
+          <option>Toy</option>
+          <option>Collar</option>
+          <option>Bed</option>
+        </select>
+
+        <select [(ngModel)]="accMaterial">
+          <option value="">Material</option>
+          <option>Leather</option>
+          <option>Plastic</option>
+          <option>Fabric</option>
+        </select>
+
+        <select [(ngModel)]="accColor">
+          <option value="">Color</option>
+          <option>Brown</option>
+          <option>Red</option>
+          <option>Blue</option>
+          <option>Green</option>
+        </select>
+      </div>
+
+      
+      <div class="filter-group" *ngIf="currentCategory==='food'">
+        <select [(ngModel)]="foodAnimal">
+          <option value="">Animal</option>
+          <option>Dog</option>
+          <option>Cat</option>
+          <option>Bunny</option>
+        </select>
+
+        <select [(ngModel)]="foodType">
+          <option value="">Food Type</option>
+          <option>Dry</option>
+          <option>Wet</option>
+        </select>
+
+        <select [(ngModel)]="foodSize">
+          <option value="">Size</option>
+          <option>Small</option>
+          <option>Medium</option>
+          <option>Large</option>
+        </select>
+
+        <select [(ngModel)]="foodFlavor">
+          <option value="">Flavor</option>
+          <option>Chicken</option>
+          <option>Beef</option>
+          <option>Fish</option>
+        </select>
+      </div>
+    </aside>
+
+    <section class="products">
+      <ng-container *ngIf="filteredItems.length; else noResults">
+        <div class="card" *ngFor="let item of filteredItems">
+          <img [src]="item.img" [alt]="item.name" />
+          <div class="card-content">
+            <h4>{{ item.name }}</h4>
+            <p>{{ item.animal }} • ${{ item.price }}</p>
+            <button type="button" (click)="openModal(item)">View Details</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #noResults>
+        <div class="no-results">No items found based on your preference 🐾</div>
+      </ng-template>
+    </section>
+  </div>
+</main>
+
+<!-- MODAL -->
+<div class="modal" *ngIf="modalOpen" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-modal" (click)="closeModal()">&times;</span>
+
+    <div class="modal-body" *ngIf="activeModalItem as item">
+      <div class="modal-left">
+        <h2 id="modalName">{{ item.name }}</h2>
+        <p id="modalBreed">Breed/Type: {{ item.breed || item.type || '' }}</p>
+        <p id="modalAge">Age: {{ item.age || '' }}</p>
+        <p id="modalGender">Gender: {{ item.gender || '' }}</p>
+        <p id="modalPrice">Price: ${{ item.price }}</p>
+      </div>
+
+      <div class="modal-center">
+        <img id="modalImg" [src]="item.img" [alt]="item.name" />
+      </div>
+
+      <div class="modal-right">
+        <h4 id="recommendedHeading">{{ recommendedHeading }}</h4>
+
+        <div id="recommended">
+          <div
+            class="recommended-card"
+            *ngFor="let r of recommended"
+            [class.selected]="isRecommendedSelected(r)"
+            (click)="toggleRecommended(r)"
+          >
+            <img [src]="r.img" [alt]="r.name" />
+            <p>{{ r.name }}</p>
+            <p>${{ r.price }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+    
+      <button type="button" (click)="buyNow()">Buy Now</button>
+      <button type="button" (click)="addToCart()">Add to Cart</button>
+      <button type="button" (click)="careBook()">Care Book</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+
+    <div class="footer-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <div class="footer-copy">© 2026 PetStore — All rights reserved.</div>
+  </div>
+</footer>

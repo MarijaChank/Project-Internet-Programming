@@ -1,0 +1,65 @@
+<header>
+  <div class="nav">
+    <div class="logo">🐾 LittlePaws</div>
+    <a class="back-btn" routerLink="/petstore">← Back to PetStore</a>
+  </div>
+</header>
+
+<main>
+  <div class="cart-items">
+    <div class="empty-cart" *ngIf="cartData.length === 0">
+      No items in cart 🐾
+    </div>
+
+    <div class="cart-card" *ngFor="let item of cartData">
+      <img [src]="item.img" [alt]="item.name" />
+      <h4>{{ item.name }}</h4>
+      <p>${{ item.price }}</p>
+      <button class="delete-btn" type="button" (click)="removeItem(item)">X</button>
+    </div>
+  </div>
+
+  <div class="cart-summary">
+    <h3>Summary</h3>
+
+    <div id="summaryList">
+      <div class="summary-item" *ngFor="let item of cartData">
+        <span>{{ item.name }}</span>
+        <span>${{ item.price }}</span>
+      </div>
+    </div>
+
+    <div class="total">Total: ${{ total }}</div>
+
+    <button
+      class="checkout-btn"
+      type="button"
+      (click)="goToCheckout()"
+      [disabled]="cartData.length === 0"
+    >
+      Checkout
+    </button>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+
+    <div class="footer-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 PetStore — All rights reserved.
+    </div>
+  </div>
+</footer>

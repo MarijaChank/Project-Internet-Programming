@@ -1,0 +1,270 @@
+:root {
+  --primary:#c19a6b;
+  --secondary:#f5efe6;
+  --card:#ffffff;
+  --text:#3f3a34;
+  --muted:#7a7268;
+  --footer-bg:#3f3a34;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+:host{
+  display:block;
+  font-family:system-ui,sans-serif;
+  background:var(--secondary);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* Header */
+header { position:sticky; top:0; background:#fffaf3; border-bottom:1px solid #e6d8c3; z-index:100; }
+.nav { width:85%; margin:auto; padding:1rem 0; display:flex; justify-content:space-between; align-items:center; }
+.logo { font-weight:800; font-size:1.4rem; color:var(--primary); }
+.nav-links { display:flex; align-items:center; }
+.nav-links a { margin-left:1.5rem; text-decoration:none; color:var(--text); }
+.cart-icon { margin-left:1.5rem; position:relative; cursor:pointer; }
+.cart-count { position:absolute; top:-6px; right:-10px; background:var(--primary); color:white; font-size:0.7rem; padding:2px 5px; border-radius:50%; }
+
+/* Main layout */
+.contact-section { width:100%; display:flex; flex-direction:column; align-items:center; margin-top:0; gap:2rem; }
+
+.map-wrapper { position:relative; width:100%; margin-top:0; }
+.map-wrapper iframe { width:100%; height:600px; border:none; filter:brightness(0.95); }
+
+.contact-form {
+  position:absolute;
+  top:50%;
+  right:5%;
+  transform:translateY(-50%);
+  width:320px;
+  background:var(--card);
+  padding:2rem;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.contact-form h2 { color:var(--primary); margin-bottom:1rem; font-size:1.5rem; }
+
+.contact-form input,
+.contact-form textarea {
+  width:100%;
+  padding:0.7rem;
+  margin-bottom:1rem;
+  border-radius:8px;
+  border:1px solid #d6c3a5;
+  background:#fffaf3;
+}
+
+.contact-form textarea { resize:none; height:100px; }
+
+.contact-form button {
+  width:100%;
+  padding:0.7rem;
+  border:none;
+  border-radius:8px;
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+.contact-form button:hover { background:#a87c4f; }
+.contact-form button:disabled { opacity:.6; cursor:not-allowed; }
+
+#successMsg { margin-top:0.5rem; color:green; font-weight:600; text-align:center; }
+
+.contact-info {
+  width:85%;
+  max-width:1100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1.5rem;
+  margin-bottom:2rem;
+}
+.contact-info h1 { font-size:2rem; color:var(--primary); }
+.contact-info p.subtitle { font-size:0.95rem; color:var(--muted); }
+
+.info-box { width:100%; display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; }
+.info-box div { flex:1; background:var(--card); padding:1rem; border-radius:12px; box-shadow:0 6px 12px rgba(0,0,0,0.05); }
+.info-box h3 { margin-bottom:0.5rem; color:var(--primary); }
+.info-box p { font-size:0.9rem; color:var(--text); line-height:1.4; }
+
+/* Footer */
+footer{
+  background:var(--footer-bg);
+  color:var(--secondary);
+  padding:2.2rem 0;
+  width:100%;
+}
+
+.footer-wrap{
+  width:85%;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1.2rem;
+}
+
+.footer-social{
+  display:flex;
+  gap:1rem;
+}
+.footer-social a{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  background:rgba(255,255,255,0.10);
+  transition:0.2s;
+  text-decoration:none;
+}
+.footer-social a:hover{
+  background:rgba(255,255,255,0.18);
+  transform:translateY(-1px);
+}
+
+.footer-nav{
+  display:flex;
+  gap:1.3rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.footer-nav a{
+  color:#ddd;
+  text-decoration:none;
+  font-weight:800;
+  transition:0.2s;
+}
+.footer-nav a:hover{ color:var(--primary); }
+
+.footer-copy{
+  color:#bbb;
+  font-size:0.95rem;
+}
+
+/* Toast like Donations */
+.toast{
+  position: fixed;
+  top: 92px;              /* sits under the header */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 92%);
+  background: #ffffff;
+  border: 1px solid rgba(214,195,165,0.9);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  z-index: 9999;
+}
+
+.toast-main{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toast-title{
+  font-weight: 800;
+  color: var(--text);
+}
+
+.toast-sub{
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.toast-btn{
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 800;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.toast-btn:hover{
+  background: #a87c4f;
+  transform: translateY(-1px);
+}
+
+
+/* Responsive */
+@media(max-width:900px){
+  .contact-form { position:static; transform:none; width:90%; margin-top:-60px; }
+  .map-wrapper iframe { height:400px; }
+  .info-box { flex-direction:column; }
+}
+
+@media (max-width: 768px){
+  .nav,
+  .contact-info,
+  .footer-wrap{
+    width:92%;
+  }
+
+  .nav{ padding:0.85rem 0; }
+  .logo{ font-size:1.15rem; }
+  .nav-links a{ margin-left:0.85rem; font-size:0.95rem; }
+  .cart-icon{ margin-left:0.85rem; }
+
+  .map-wrapper iframe{
+    height:360px;
+    border-radius:12px;
+  }
+
+  .contact-form{
+    position:static;
+    transform:none;
+    width:92%;
+    margin: -70px auto 0;
+    padding:1.4rem;
+  }
+  .contact-form h2{ font-size:1.3rem; }
+  .contact-form input,
+  .contact-form textarea{ padding:0.65rem; }
+
+  .contact-info{
+    gap:1.1rem;
+    margin-bottom:1.6rem;
+  }
+  .contact-info h1{
+    font-size:1.65rem;
+    text-align:center;
+  }
+  .contact-info p.subtitle{
+    text-align:center;
+    line-height:1.5;
+  }
+
+  .info-box{
+    flex-direction:column;
+    gap:1rem;
+  }
+  .info-box div{ padding:1rem; }
+
+  .footer-nav{ gap:0.9rem; }
+}
+
+@media (max-width: 420px){
+  .nav-links a{ margin-left:0.7rem; font-size:0.9rem; }
+  .map-wrapper iframe{ height:300px; }
+
+  .contact-form{
+    width:94%;
+    margin-top:-55px;
+    padding:1.2rem;
+  }
+  .contact-form textarea{ height:92px; }
+}

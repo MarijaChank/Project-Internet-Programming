@@ -1,0 +1,149 @@
+<header id="siteHeader" [class.is-solid]="headerSolid">
+  <div class="nav">
+    <div class="logo">🐾 LittlePaws</div>
+
+    <div class="nav-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+
+      <a class="cart-icon" routerLink="/cart" aria-label="Cart">
+        🛒
+        <span class="cart-count">{{ cartCount }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <video autoplay muted loop playsinline>
+    <source src="Pictures&Videos/homevideo.mp4" type="video/mp4" />
+  </video>
+
+  <div class="hero-content">
+    <h1 class="hero-title">LittlePaws</h1>
+    <p class="hero-slogan">Where every paw finds a home</p>
+
+    <div class="hero-actions choose">
+      <button class="choose-btn" type="button" (click)="toggleDropdown()">
+        Choose your pet <span class="caret">▼</span>
+      </button>
+
+      <div class="dropdown" *ngIf="dropdownOpen">
+        <div class="quick-grid">
+          <button class="quick" type="button" (click)="goToPetstore('pets','Dog')">Dogs</button>
+          <button class="quick" type="button" (click)="goToPetstore('pets','Cat')">Cats</button>
+          <button class="quick" type="button" (click)="goToPetstore('pets','Bunny')">Bunnies</button>
+        </div>
+      </div>
+
+      <div class="hero-hint">Scroll to continue ↓</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-content">
+    <h2>About Us</h2>
+
+    <p>
+      LittlePaws is a cozy place where adoption meets care. We help pets find a loving home,
+      and we support every new owner with the right accessories and food.
+    </p>
+
+    <p>
+      We work with trusted shelters and breeders, ensuring every pet is healthy,
+      socialized, and ready for a family.
+    </p>
+
+    <div class="about-stats">
+      <div class="stat">
+        <strong>1,200+</strong>
+        <span>Happy adoptions</span>
+      </div>
+
+      <div class="stat">
+        <strong>150+</strong>
+        <span>Store products</span>
+      </div>
+
+      <div class="stat">
+        <strong>24/7</strong>
+        <span>Support & care tips</span>
+      </div>
+    </div>
+
+    <div class="about-actions">
+      <a routerLink="/petstore">Browse Pets</a>
+      <a routerLink="/contact">Contact Us</a>
+    </div>
+  </div>
+
+  <div class="about-media"></div>
+</section>
+
+<!-- WHY -->
+<div class="section-head">
+  <h2>Why choose us?</h2>
+  <p>Simple, safe, and friendly — we help you adopt and shop with confidence.</p>
+</div>
+
+<section class="why">
+  <div class="why-card">
+    <h3>✅ Trusted Adoption</h3>
+    <p>Verified sources and safe homes for every pet.</p>
+  </div>
+
+  <div class="why-card">
+    <h3>🥣 Smart Recommendations</h3>
+    <p>Food and accessories tailored to your pet.</p>
+  </div>
+
+  <div class="why-card">
+    <h3>💬 Support Anytime</h3>
+    <p>Guidance whenever you need help.</p>
+  </div>
+</section>
+
+<!-- DONATE -->
+<div class="section-head">
+  <h2>Help pets in need</h2>
+  <p>Your support goes directly toward care, comfort, and second chances.</p>
+</div>
+
+<section class="donate-wrap">
+  <div class="donate-box">
+    <div class="donate-content">
+      <h3>Donate & change a life</h3>
+      <p>very week, animals arrive at shelters needing food, warmth, and medical attention. Your donation helps cover vaccinations, emergency treatment, and daily meals — the basics that keep pets safe while they wait for a loving forever home.
+
+It also supports rescue partners with supplies like blankets, hygiene products, and recovery care. Even small support makes a huge difference when it adds up across many animals that need help at the same time.
+
+If you’re not ready to adopt today, donating is still a powerful way to be part of the journey — helping pets stay healthy, calm, and cared for until the right family finds them.</p>
+
+      <div class="donate-actions">
+        <a routerLink="/donations">Go to Donations</a>
+      </div>
+    </div>
+
+    <div class="donate-media"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-nav">
+      <a routerLink="/">Home</a>
+      <a routerLink="/petstore">PetStore</a>
+      <a routerLink="/donations">Donations</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 PetStore — All rights reserved.
+    </div>
+  </div>
+</footer>
